@@ -1,0 +1,54 @@
+version: "3.3"
+services:
+  bot:
+    container_name: vendemas_bot
+    build: ./bot
+    restart: always
+    volumes:
+      - ./bot:/app
+      - node_modules_bot:/app/node_modules # ignore node modules
+    # command: bash -c "npm run build && node --experimental-specifier-resolution=node dist/app.js"
+    command: bash -c "npm run build"
+    ports:
+      - "4000:4000"
+    networks:
+      - vendemas-network
+  ocr:
+    container_name: vendemas_ocr
+    build: ./ocr
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ocr:/app
+    networks:
+      - vendemas-network
+    command: bash -c "uvicorn app.main:app --host=0.0.0.0 --port=8000 --workers=1"
+  # caddy:
+  #   container_name: vendemas_caddy
+  #   image: caddy:2.1.1
+  #   restart: always
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+  #     - caddy_data:/data
+  #     - caddy_config:/config
+  #   environment:
+  #     API_URL: api1.vendemas.store
+  #     STATIC_URL: static.vendemas.store
+  #     APP_URL: app.vendemas.store
+  #     STORE_API_URL: api2.vendemas.store
+  #     LINK_URL: link.vendemas.store
+  #     PAGE_URL: vendemas.store
+  #   networks:
+  #     - vendemas-network
+networks:
+  vendemas-network:
+    driver: bridge
+
+volumes:
+  node_modules_bot:
+  caddy_config:
+  caddy_data:

@@ -1,0 +1,9 @@
+node_modules
+ref
+stockxdata
+testdata
+db_bak
+dist
+*.zip
+*.jpg
+*.png

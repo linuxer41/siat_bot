@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" template="/common/templateNoAuth.xhtml">
+
+<script type="application/javascript">
+       
+	function guardarCookie(nombre,valor,fecha) {
+		document.cookie = nombre+"="+valor+";expires="+fecha;
+	}			  
+	function guardar() {	
+		var vFecha = new Date();	 
+		if(vFecha!=null)
+		{
+			vFecha.setHours(vFecha.getHours()+1);
+			var vMinutoActual=vFecha.getMinutes();
+			guardarCookie("TimeApp",vMinutoActual,vFecha.toUTCString())
+		}
+	}
+</script><head id="j_idt4"><link type="text/css" rel="stylesheet" href="/Autenticacion/javax.faces.resource/theme.css.xhtml?ln=primefaces-admin" /><link type="text/css" rel="stylesheet" href="/Autenticacion/javax.faces.resource/fa/font-awesome.css.xhtml?ln=primefaces&amp;v=6.1" /><script type="text/javascript" src="/Autenticacion/javax.faces.resource/eNp9jEEKgDAMBF9ke-9vSkmlwSQ1aUXBxyvqScHTwuwwSYiEg0fzTaI1dVTYoe1VC0GOCSzg3EE3f8_rS6LwQVSFgZv9dYY69bHw5WBc4uoeyfKJDsa5O-M.js.xhtml?ln=omnifaces.combined&amp;v=1640108758000" crossorigin="anonymous"></script><link type="text/css" rel="stylesheet" href="/Autenticacion/javax.faces.resource/eNorKMrMTU1LTE4ttkrOzy3Iz0vNKynWSy4uBgCDwwoX.css.xhtml?ln=omnifaces.combined&amp;v=1492622952000" /><script type="text/javascript" src="/Autenticacion/javax.faces.resource/validation/validation.js.xhtml?ln=primefaces&amp;v=6.1"></script><script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='en';PrimeFaces.settings.validateEmptyFields=false;PrimeFaces.settings.considerEmptyStringNull=true;}</script>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<meta name="mobile-web-app-capable" content="yes" />
+
+		<style type="text/css">
+body .load-bar {
+	margin-top: -20px;
+}
+
+@media ( max-width : 768px) {
+	div.ui-growl {
+		display: none !important;
+	}
+	div.ui-messages-error {
+		display: block !important;
+	}
+}
+
+@media ( min-width : 769px) {
+	div.ui-growl {
+		display: block !important;
+	}
+	div.ui-messages-error {
+		display: none !important;
+	}
+}
+</style></head><body>
+<form id="form" name="form" method="post" action="/Autenticacion/index.xhtml" enctype="application/x-www-form-urlencoded" onkeypress="if (event.keyCode == 13) { document.getElementById('form:btnStartSession').click(); return false; }">
+<input type="hidden" name="form" value="form" />
+
+			<div id="loader" class="load-bar" style="display: none">
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+			</div>
+
+			<div class="login-box">
+
+				<div class="login-logo" style="margin-bottom: 0px"><a href="index.xhtml" class="ui-link ui-widget"><img src="/Autenticacion/common/images/SIAT.jpg" class="logo-size" /></a>
+				</div><span id="form:j_idt14"></span><script type="text/javascript">$(function(){PrimeFaces.focus();});</script>
+
+				<div class="ui-widget-content box login-box-body">
+
+					<div style="padding:.5em 1em">
+						<p class="login-box-msg">Ingrese sus datos para iniciar sesión</p>
+						
+						<div class="form-group has-feedback"><div id="form:iTipoUsuarioId" class="ui-selectonemenu ui-widget ui-state-default ui-corner-all"><div class="ui-helper-hidden-accessible"><input id="form:iTipoUsuarioId_focus" name="form:iTipoUsuarioId_focus" type="text" autocomplete="off" role="combobox" aria-haspopup="true" aria-expanded="false" /></div><div class="ui-helper-hidden-accessible"><select id="form:iTipoUsuarioId_input" name="form:iTipoUsuarioId_input" tabindex="-1" aria-hidden="true" data-p-hl="onemenu"><option value="TipoUsuario [tipoUsuarioId=862, descripcion=Contribuyente, placeholder=Nit contribuyente]" selected="selected">Contribuyente</option><option value="TipoUsuario [tipoUsuarioId=1823, descripcion=Dependiente, placeholder=Código dependiente]">Dependiente</option><option value="TipoUsuario [tipoUsuarioId=4689, descripcion=Beneficiario, placeholder=Código beneficiario]">Beneficiario</option><option value="TipoUsuario [tipoUsuarioId=4690, descripcion=Externo, placeholder=]">Externo</option><option value="TipoUsuario [tipoUsuarioId=861, descripcion=Funcionario, placeholder=Código funcionario]">Funcionario</option></select></div><label id="form:iTipoUsuarioId_label" class="ui-selectonemenu-label ui-inputfield ui-corner-all" data-placeholder="Tipo Usuario">&nbsp;</label><div class="ui-selectonemenu-trigger ui-state-default ui-corner-right"><span class="ui-icon ui-icon-triangle-1-s ui-c"></span></div><div id="form:iTipoUsuarioId_panel" class="ui-selectonemenu-panel ui-widget ui-widget-content ui-corner-all ui-helper-hidden ui-shadow"><div class="ui-selectonemenu-items-wrapper" style="height:auto"><ul id="form:iTipoUsuarioId_items" class="ui-selectonemenu-items ui-selectonemenu-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" role="listbox"><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="Contribuyente" tabindex="-1" role="option">Contribuyente</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="Dependiente" tabindex="-1" role="option">Dependiente</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="Beneficiario" tabindex="-1" role="option">Beneficiario</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="Externo" tabindex="-1" role="option">Externo</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="Funcionario" tabindex="-1" role="option">Funcionario</li></ul></div></div></div><script id="form:iTipoUsuarioId_s" type="text/javascript">$(function(){PrimeFaces.cw("SelectOneMenu","selectTipoUsuarioId",{id:"form:iTipoUsuarioId",behaviors:{itemSelect:function(ext,event) {PrimeFaces.ab({s:"form:iTipoUsuarioId",e:"itemSelect",p:"form:iTipoUsuarioId",u:"form:text"},ext);}}});});</script>
+						</div>
+						<div class="form-group has-feedback"><span id="form:text"><input id="form:txtDependiente" name="form:txtDependiente" type="text" autocomplete="off" maxlength="50" placeholder="Nit contribuyente" tabindex="1" onchange="return PrimeFaces.vi(this)" style="height: 30px;" aria-required="true" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all form-control" data-p-rmsg="El Nit contribuyente es requerido." data-p-required="true" /><script id="form:txtDependiente_s" type="text/javascript">PrimeFaces.cw("InputText","widget_form_txtDependiente",{id:"form:txtDependiente"});</script><div id="form:j_idt19" aria-live="polite" data-display="both" data-target="form:txtDependiente" data-redisplay="true" class="ui-message"></div></span>
+							
+							<i class="fa fa-user form-control-feedback"></i>
+						</div>
+
+						<div class="form-group has-feedback"><input id="form:txtUsuario" name="form:txtUsuario" type="text" autocomplete="off" maxlength="50" placeholder="Usuario" tabindex="2" onchange="return PrimeFaces.vi(this)" style="height: 30px;" aria-required="true" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all form-control" data-p-rmsg="El usuario es requerido." data-p-required="true" /><script id="form:txtUsuario_s" type="text/javascript">PrimeFaces.cw("InputText","widget_form_txtUsuario",{id:"form:txtUsuario"});</script><div id="form:j_idt23" aria-live="polite" data-display="both" data-target="form:txtUsuario" data-redisplay="true" class="ui-message"></div>
+							<i class="fa fa-user form-control-feedback"></i>
+						</div>
+
+						<div class="form-group has-feedback"><input id="form:txtClave" name="form:txtClave" type="password" autocomplete="off" maxlength="50" placeholder="Contraseña" tabindex="3" onchange="return PrimeFaces.vi(this)" style="height: 30px;" aria-required="true" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all form-control" data-p-rmsg="La contraseña es requerida." data-p-required="true" /><script id="form:txtClave_s" type="text/javascript">PrimeFaces.cw("InputText","widget_form_txtClave",{id:"form:txtClave"});</script><div id="form:j_idt25" aria-live="polite" data-display="both" data-target="form:txtClave" data-redisplay="true" class="ui-message"></div>
+							<i class="fa fa-lock form-control-feedback"></i>
+						</div>
+
+						<div class="form-group has-feedback text-center">
+							<div class="col-sx-12"><img id="form:captcha" src="/Autenticacion/javax.faces.resource/dynamiccontent.properties.xhtml?ln=primefaces&amp;v=6.1&amp;pfdrid=3a704c5fab98651824e3fd4acb3dfaee&amp;pfdrt=sc&amp;randomNumber=55&amp;pfdrid_c=false&amp;uid=1a9c38f0-3c60-40b0-a65f-523cfd5091c3" alt="" /><button id="form:j_idt28" name="form:j_idt28" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only btn-default" onclick="PrimeFaces.bcn(this,event,[function(event){mojarra.ab('form:j_idt28',event,'click',0,'form:captcha')},function(event){PrimeFaces.ab({s:&quot;form:j_idt28&quot;});return false;}]);" tabindex="6" title="Probar con otro texto" type="submit"><span class="ui-button-icon-left ui-icon ui-c fa fa-refresh"></span><span class="ui-button-text ui-c">Probar con otro texto</span></button><script id="form:j_idt28_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_form_j_idt28",{id:"form:j_idt28",behaviors:{click:function(ext,event) {mojarra.ab('form:j_idt28',event,'click',0,'form:captcha',{'params':{'CLIENT_BEHAVIOR_RENDERING_MODE':'UNOBSTRUSIVE'}})}}});</script>
+							</div>
+						</div>
+						<div class="form-group has-feedback">
+							<div class="col-sx-12"><input id="form:txtCaptchaId" name="form:txtCaptchaId" type="text" autocomplete="false" maxlength="6" placeholder="Digite el texto que se muestra en la imagen" tabindex="4" onchange="return PrimeFaces.vi(this)" style="height: 30px;" aria-required="true" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all form-control" data-p-rmsg="El texto de seguridad es requerido." data-p-required="true" /><script id="form:txtCaptchaId_s" type="text/javascript">PrimeFaces.cw("InputText","widget_form_txtCaptchaId",{id:"form:txtCaptchaId"});</script><div id="form:j_idt32" aria-live="polite" data-display="both" data-target="form:txtCaptchaId" data-redisplay="true" class="ui-message"></div>
+							</div>
+						</div>
+						<div class="row"><img id="form:j_idt34" height="5" alt="" src="/Autenticacion/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=6.1" />
+							<div class="col-xs-12"><button id="form:btnStartSession" name="form:btnStartSession" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only btn btn-primary btn-block" onclick="PrimeFaces.bcn(this,event,[function(event){guardar()},function(event){PrimeFaces.onPost();}]);" tabindex="5" type="submit"><span class="ui-button-text ui-c">Iniciar sesión</span></button><script id="form:btnStartSession_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_form_btnStartSession",{id:"form:btnStartSession"});</script>
+							</div>
+						</div>
+						<br /> 
+						<br /> * Para ingresar como dependiente seleccione esta opción en la lista "Tipo usuario". 
+					</div>
+				</div>
+			</div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="-8452877458275458144:5854603717138440231" autocomplete="off" />
+</form></body>
+</html>

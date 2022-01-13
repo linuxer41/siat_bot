@@ -1,0 +1,49 @@
+{
+    email linuxer41@gmail.com
+    on_demand_tls {
+        ask      http://store_server:4000/acme/challenge
+        interval 2m
+        burst    5
+    }
+}
+https:// {
+    tls {
+        on_demand
+    }
+
+    @app host {env.APP_URL} 
+    handle @app {
+        #reverse_proxy client:3000
+        respond "available son"
+    }
+
+    @api host {env.API_URL}
+    handle @api {
+       reverse_proxy server:8000
+    }
+
+    @static host {env.STATIC_URL}
+    handle @static {
+        reverse_proxy static:8000
+    }
+    
+    @store_api host {env.STORE_API_URL}
+    handle @store_api {
+        reverse_proxy store_server:4000
+    }
+    
+    @link host {env.LINK_URL}
+    handle @link {
+        reverse_proxy open_data:4000
+    }
+
+    @page host {env.PAGE_URL}
+    handle @page {
+        respond "working on it"
+    }
+
+    # Fallback for otherwise unhandled domains
+    handle {
+        reverse_proxy store_client:3000
+    }
+}
