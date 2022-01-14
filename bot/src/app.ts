@@ -6,9 +6,8 @@ import { sentry, transaction } from "./sentry";
 import { closeTesseractWorker, inicialiceTesseractWorker, ocr, prepareImage, sleep } from "./utils";
 
 
-async function getCatpchaText(driver: ThenableWebDriver, captcha: WebElement) {
+async function getCatpchaText(driver: ThenableWebDriver, captcha_src: string) {
     await sleep(2000)
-    const captcha_src = await captcha.getAttribute('src');
     // open new window
     await driver.executeScript(`window.open("${captcha_src}", "_blank");`);
     // switch to new window
@@ -60,17 +59,23 @@ async function getCatpchaText(driver: ThenableWebDriver, captcha: WebElement) {
         while (captcha_text.length !== 6) {
             // rfresh captcha
             atempts++
-            let captcha: WebElement;
+            let captcha_src: string;
             if(atempts > 1) {
                 // refresh captcha
-                const refres_button = await driver.findElement(By.id('form:j_idt24'));
-                await sleep(1000)
+
+                // find by xpath regexp expression contains id="form"
+                const refres_button = await driver.findElement(By.xpath(`//button[contains(@id, 'form:j_idt')]`));
+
+                // const refres_button = await driver.findElement(By.xpath('contains(@id, "form")'))"]'));
                 await refres_button.click();
-                captcha = await driver.findElement(By.id('form:captcha'));
+                await sleep(1000)
+                const captcha = await driver.findElement(By.id('form:captcha'));
+                captcha_src = await captcha.getAttribute('src');
             } else{
-                captcha = await driver.findElement(By.id('form:captcha'));
+                const captcha = await driver.findElement(By.id('form:captcha'));
+                captcha_src = await captcha.getAttribute('src');
             }
-            captcha_text = await getCatpchaText(driver, captcha)
+            captcha_text = await getCatpchaText(driver, captcha_src)
         }
         await driver.executeScript(`
         document.cookie = "UserSIN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsaW51eGVyMDciLCJvZmljaW5hIjoiSDRzSUFBQUFBQUFBQURNQUFDSGYyX1FCQUFBQSIsIm5pdCI6Ikg0c0lBQUFBQUFBQUFETTNNVGN4c1RBMk1EUUdBRXZabm5nS0FBQUEiLCJpZCI6MTU1OTI5OCwiZXhwIjoxNjQyMDM2Mzg0LCJpYXQiOjE2NDIwMjE5MjQsImRlcGVuZGVuY2lhIjoiSDRzSUFBQUFBQUFBQURNME1BQUE2bEIzSXdNQUFBQT0ifQ.iWzxqRR3QdrBBujCFxGO1ZXM6RflF5DZuyb-_LnAD2SOGWlLXTLFtliuRYrMVKT2Q16ptJSLhtJ8Po_nCPH26w,path=/,httponly=true";
