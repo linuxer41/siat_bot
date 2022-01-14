@@ -1,24 +1,26 @@
 version: "3.3"
 services:
-  bot:
-    container_name: vendemas_bot
-    build: ./bot
-    restart: always
-    volumes:
-      - ./bot:/app
-      - node_modules_bot:/app/node_modules # ignore node modules
-    # command: bash -c "npm run build && node --experimental-specifier-resolution=node dist/app.js"
-    command: bash -c "npm run build"
-    ports:
-      - "4000:4000"
-    networks:
-      - vendemas-network
+  # bot:
+  #   container_name: vendemas_bot
+  #   build: ./bot
+  #   restart: always
+  #   volumes:
+  #     - ./bot:/app
+  #     - node_modules_bot:/app/node_modules # ignore node modules
+  #   # command: bash -c "npm run build && node --experimental-specifier-resolution=node dist/app.js"
+  #   command: bash -c "npm run build"
+  #   ports:
+  #     - "4000:4000"
+  #   networks:
+  #     - vendemas-network
+  
   ocr:
     container_name: vendemas_ocr
     build: ./ocr
     restart: always
     ports:
-      - "8000:8000"
+      - "8000:80"
+
     volumes:
       - ./ocr:/app
     networks:

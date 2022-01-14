@@ -1,2 +1,2 @@
-export { ocr } from './ocr'
-export { download, sleep, prepareImage } from './jim'
+export { ocr, inicialiceTesseractWorker, closeTesseractWorker } from './ocr'
+export { sleep, prepareImage } from './jim'

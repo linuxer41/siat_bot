@@ -3,7 +3,7 @@ import { db_client,  } from "./db";
 import {createDriver } from "./scrapping";
 import fs from "fs";
 import { sentry, transaction } from "./sentry";
-import { download, ocr, prepareImage, sleep } from "./utils";
+import { closeTesseractWorker, inicialiceTesseractWorker, ocr, prepareImage, sleep } from "./utils";
 import path from "path";
 
 async function retry(fn, args = [], retries = 3, ) {
@@ -37,6 +37,7 @@ async function getPage(driver: ThenableWebDriver, url="http://siat.impuestos.gob
     async () => {;
         let driverType: 'chrome' | 'firefox' = 'chrome';
         let driver = createDriver(driverType, true)
+        await inicialiceTesseractWorker();
         // await db_client.connect()
         await driver.get("https://siat.impuestos.gob.bo")
         // await retry(getPage, [driver, 'http://siat.impuestos.gob.bo'], 3)
@@ -81,18 +82,19 @@ async function getPage(driver: ThenableWebDriver, url="http://siat.impuestos.gob
         // wait until the image is loaded
         await sleep(2000)
         // find the image
-        const image = await driver.findElement(By.css('img'));
-        const img = await image.takeScreenshot()
-        fs.writeFileSync(file, img, 'base64');
-        
+        const image_element = await driver.findElement(By.css('img'));
+        const image_base64 = await image_element.takeScreenshot()
+        // image buffer from base64
+        const image_buffer = Buffer.from(image_base64, 'base64');
+        const prepared_buffer = await prepareImage(image_buffer);
 
         // close the new window
         await driver.close();
         // switch back to the original window
         await driver.switchTo().window(handles[0]);
         // await prepareImage(file, "background")
-        const text = await ocr(file);
-        console.log(text?.replace(/\s/g, ''));
+        const text = await ocr(prepared_buffer);
+        console.log(text);
     
         // const text = await ocrWorker.recognize(file);
         
@@ -152,6 +154,7 @@ async function getPage(driver: ThenableWebDriver, url="http://siat.impuestos.gob
         let title = await driver.getTitle()
         console.log(title)
         await driver.close()
+        await closeTesseractWorker()
         // await db_client.end()
     }
 )()

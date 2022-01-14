@@ -1,15 +1,20 @@
-import { createWorker, recognize } from 'tesseract.js';
+import Tesseract, { createWorker, recognize } from 'tesseract.js';
+
 
 const worker = createWorker({
   logger: m => console.log(m)
 });
-
-export const ocr = async (url = 'https://tesseract.projectnaptha.com/img/eng_bw.png') => {
+export async function inicialiceTesseractWorker() {
   await worker.load();
   await worker.loadLanguage('eng');
   await worker.initialize('eng');
-  const { data: { text } } = await worker.recognize(url);
-//   console.log(text);
+}
+
+export async function closeTesseractWorker() {
   await worker.terminate();
-  return text
+}
+
+export const ocr = async (image_buffer: Buffer) => {
+  const { data: { text } } = await worker.recognize(image_buffer);
+  return text?.replace(/[^a-zA-Z0-9]/g, '').replace(/\s/g, '') || '';
 };

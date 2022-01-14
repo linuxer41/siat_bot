@@ -22,7 +22,7 @@
 	  "baseUrl": ".",
 	  "rootDir": "src",
 	},
-	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.json", "src/**/*.ejs", "src/"],
+	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.json", "src/**/*.ejs", "src/", "test.js"],
 	"ts-node" : { 
 		"compilerOptions" : { 
 			"module": "commonjs"
