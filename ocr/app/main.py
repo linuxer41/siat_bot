@@ -11,7 +11,7 @@ app = FastAPI()
 # keras-ocr will automatically download pretrained
 # weights for the detector and recognizer.
 
-reader = easyocr.Reader(['en'], gpu=False) # this needs to run only once to load the model into memory
+ # this needs to run only once to load the model into memory
 
 
 @app.post("/")
@@ -19,7 +19,7 @@ async def ocr(file: UploadFile = File(...)):
     """
     Returns the text from an image.
     """
-    
+    reader = easyocr.Reader(['en'], gpu=False)
     image_for_decode: bytes - None
 
     # save the image
@@ -49,8 +49,8 @@ async def ocr(file: UploadFile = File(...)):
 
 
 
-@app.get("")
-def read_item():
+@app.get("/")
+def get():
     return {
         "message": "Hello World"
     }

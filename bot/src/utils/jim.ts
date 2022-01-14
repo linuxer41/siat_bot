@@ -23,16 +23,6 @@ export async function prepareImage(image_buffer): Promise<Buffer> {
       image.bitmap.data[idx + 3] = image.bitmap.data[idx + 3]; // Alpha
     }
   });
-  image.normalize();
-  // fix the letter pixels
-  image.scan(0, 0, image.bitmap.width, image.bitmap.height, (x, y, idx) => {
-    if (image.bitmap.data[idx] === 255) {
-      image.bitmap.data[idx] = 255;  // Red
-      image.bitmap.data[idx + 1] = 255; // Green
-      image.bitmap.data[idx + 2] = 255; // Blue
-      image.bitmap.data[idx + 3] = image.bitmap.data[idx + 3]; // Alpha
-    }
-  });
   //crop 3px from all borders
   image.crop(3, 3, image.bitmap.width - 3, image.bitmap.height - 3);
   // save
@@ -41,6 +31,14 @@ export async function prepareImage(image_buffer): Promise<Buffer> {
   image.resize(image.bitmap.width, image.bitmap.height, jimp.RESIZE_NEAREST_NEIGHBOR);
   // save
   await image.writeAsync(`./resize.png`)
+
+  // change dpi to 300
+  image.scale(600 / image.bitmap.width);
+  // save
+  await image.writeAsync(`./scale.png`)
+
+  // docker compose attach container
+  // docker-compose attach container
 
   // conver to 300 dpi
   // image.resize(image.bitmap.width * 3, image.bitmap.height * 3);
