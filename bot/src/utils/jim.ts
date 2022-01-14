@@ -20,12 +20,16 @@ export async function prepareImage(image_buffer): Promise<Buffer> {
     }
   });
 
-  // covert to white background
-    image.background(0xFFFFFFFF).greyscale().contrast(1);
+  // conver to 300 dpi
+  // image.resize(image.bitmap.width * 3, image.bitmap.height * 3);
+  // image.quality(100);
+  // image.greyscale();
+  // image.contrast(1);
+  // image.grayscale();
+  // image.contrast(1);
+  // image.normalize();
+  // image.normalize();
 
-  // quitar pixelado de las letras
-  // image.blur();
-  // save
     await image.writeAsync("./captcha.jpeg");
     return image.getBufferAsync(jimp.MIME_JPEG)
 }

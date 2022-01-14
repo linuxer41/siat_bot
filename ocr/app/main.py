@@ -11,7 +11,7 @@ app = FastAPI()
 # keras-ocr will automatically download pretrained
 # weights for the detector and recognizer.
 
-reader = easyocr.Reader(['en']) # this needs to run only once to load the model into memory
+reader = easyocr.Reader(['en'], gpu=False) # this needs to run only once to load the model into memory
 
 
 @app.post("/")

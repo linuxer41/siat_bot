@@ -1,4 +1,4 @@
-import Tesseract, { createWorker, recognize } from 'tesseract.js';
+import Tesseract, { createWorker, OEM, PSM, recognize } from 'tesseract.js';
 
 
 const worker = createWorker({
@@ -8,6 +8,10 @@ export async function inicialiceTesseractWorker() {
   await worker.load();
   await worker.loadLanguage('eng');
   await worker.initialize('eng');
+  await worker.setParameters({
+    tessedit_char_whitelist: '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    tessedit_pageseg_mode: PSM.AUTO,
+  });
 }
 
 export async function closeTesseractWorker() {
@@ -15,6 +19,13 @@ export async function closeTesseractWorker() {
 }
 
 export const ocr = async (image_buffer: Buffer) => {
-  const { data: { text } } = await worker.recognize(image_buffer);
-  return text?.replace(/[^a-zA-Z0-9]/g, '').replace(/\s/g, '') || '';
+  let result = '';
+  // while (result.length !== 6) {
+     const { data: { text } } = await worker.recognize(image_buffer)
+    
+
+     console.log({text});
+      result = text?.replace(/[^a-zA-Z0-9]/g, '').replace(/\s/g, '') || '';
+  // }
+ return result;
 };
